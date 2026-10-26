@@ -12,5 +12,5 @@ fun Intent.isFromSelf(): Boolean {
 }
 
 fun Intent.addFromSelf() = apply {
-    return putExtra(KEY_FROM_SELF, false)
+    return putExtra(KEY_FROM_SELF, true)
 }
