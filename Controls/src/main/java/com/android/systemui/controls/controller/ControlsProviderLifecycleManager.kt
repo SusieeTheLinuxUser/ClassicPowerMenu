@@ -163,6 +163,10 @@ class ControlsProviderLifecycleManager(
         } ?: run {
             Log.d(TAG, "invokeOrQueue queue")
             queueServiceMethod(sm)
+            // Each request gets its own tries. Binds an earlier power menu lost (it closed before the
+            // connection came up, or had no resumed activity to bind with) never reset the count, and
+            // five of them left every later menu on "Loading..." until the app restarted (#189).
+            executor.execute { bindTryCount = 0 }
             bindService(true)
         }
     }
